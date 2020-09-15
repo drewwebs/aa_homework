@@ -48,7 +48,7 @@ def below_average_years
   .select(:yr, 'COUNT(*) as bad_movies')
   .where('score < ?', 5)
   .group(:yr)
-  .order(bad_movies: :desc)
+  .order('bad_movies desc')
 end
 
 def alphabetized_actors
@@ -57,14 +57,19 @@ def alphabetized_actors
   # Note: Ubuntu users may find that special characters
   # are alphabetized differently than the specs.
   # This spec might fail for Ubuntu users. It's ok!
-
+  Actor
+  .order(:name)
+  .limit(10)
 end
 
 def pulp_fiction_actors
   # practice using joins
   # display the id and name of all actors in the movie Pulp Fiction
   # hint: use 'select', 'joins', 'where'
-
+  Actor
+  .select(:id, :name)
+  .joins(:movies)
+  .where('title = \'Pulp Fiction\'')
 end
 
 def uma_movies
